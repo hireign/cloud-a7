@@ -47,14 +47,14 @@ const editJob = (req, res) => {
             throw err;
         }
         if (result.length === 0) {
-            res.send({"status": false, "message": "Job does not exists"});
+            res.send({"status": false, "message": "Job does not exist"});
         } else {
             let query = "UPDATE jobs SET qty =" + req.body.qty + " WHERE jobName='" + req.body.jobName + "' and partId= " + req.body.partId;
             db.query(query, (err, result) => {
                 if (err) {
                     throw err;
                 }
-                res.send({"status": true});
+                res.send({"status": true, "message": "Job modified"});
             });
         }
     });
@@ -67,7 +67,7 @@ const getOneJob = (req, res) => {
             throw err;
         }
         if (result.length === 0) {
-            res.send({"status": false, "message": "Job does not exists"});
+            res.send({"status": false, "message": "Job does not exist"});
         } else {
             res.send(result);
         }

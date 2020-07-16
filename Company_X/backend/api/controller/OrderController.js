@@ -21,7 +21,7 @@ const specificOrder = (req, res) => {
 }
 
 const addOrder = (req, res) => {
-    const query = "INSERT INTO PartOrdersX VALUES ('" + req.body.partId + "', " + req.body.jobName + ",'" + req.body.userId + "'," + req.body.qty + ")";
+    const query = "INSERT INTO PartOrdersX VALUES ('" + req.body.partId + "', '" + req.body.jobName + "','" + req.body.userId + "'," + req.body.qty + ")";
         con.query(query,(err, result) => {
         if(err){
             throw err;
