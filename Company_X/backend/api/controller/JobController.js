@@ -1,98 +1,86 @@
 const db = require('../db/sql')
 
 const allJobs = (req, res) => {
-    let sql='SELECT * FROM jobs';
-    let query=db.query(sql,(err,job)=>{
-        if(err){
+    const query = 'SELECT * FROM jobs';
+    db.query(query, (err, result) => {
+        if (err) {
             throw err;
         }
-        console.log(job);
-        res.send(JSON.stringify(job));
+        res.send(JSON.stringify(result));
     });
 }
 
 const addJob = (req, res) => {
-    console.log("POST called");
-    if(!req.body.jobName || !req.body.partId || !req.body.qty){
-        res.status(400).send('name of the jobs, parts id and quentity required.');
-    }else{
-        let sql="select * from jobs where jobName = '"+req.body.jobName+"' and partId= "+req.body.partId;
-        let query=db.query(sql,(err,job)=>{
-            if(err){
-                throw err;
-            }
-            if(job==""){
-                let sql="insert into jobs values ('"+req.body.jobName+"',"+req.body.partId+","+req.body.qty+")";
-                let query=db.query(sql,(err,job)=>{
-                    if(err){
-                        throw err;
-                    }
-                    res.send({"message":true});
-                });
-            } else{ 
-                res.status(404).send('Job with name '+ req.body.jobName+ ' and part id '+req.body.partId+' already exists');
-            }
-        });
-    }
-}
-
-const deleteJob = (req,res)=>{
-    let sql="delete from jobs where jobName = '"+req.body.jobName+"' and partId= "+req.body.partId;
-    let query=db.query(sql,(err,j)=>{
-        if(err){
+    let query = "SELECT * FROM jobs WHERE jobName = '" + req.body.jobName + "' and partId= " + req.body.partId;
+    db.query(query, (err, result) => {
+        if (err) {
             throw err;
         }
-        res.send({"message":true});
-    });
-}
-
-const editJob = (req,res) => {
-    if(!req.body.jobName || !req.body.partId || !req.body.qty){
-        res.status(400).send('name of the jobs, parts id and quentity required.');
-    }else{
-        let sql="select * from jobs where jobName = '"+req.body.jobName+"' and partId= "+req.body.partId;
-        let query=db.query(sql,(err,job)=>{
-            if(err){
-                throw err;
-            }
-            if(job==""){
-                res.status(404).send('Job with name '+ req.body.jobName+ ' and part id '+req.body.partId+' not found.');
-            } else{ 
-                let sql="update jobs set qty ="+req.body.qty+" where jobName='"+req.body.jobName+"' and partId= "+req.body.partId;
-                let query=db.query(sql,(err,job)=>{
-                    if(err){
-                        throw err;
-                    }
-                    res.send({"message":true});
-                });            
-            }
-        });
-    }
-}
-
-const getOneJob = (req,res) => {
-    let sql="select * from jobs where jobName = '"+req.query.jobName+"' and partId= "+req.query.partId;
-    let query=db.query(sql,(err,job)=>{
-        if(err){
-            throw err;
-        }
-        console.log(job);
-        if(job=="") {
-            res.status(404).send('Job with name '+ req.query.jobName+ ' and part id '+req.query.partId+' was not found');
-        }else{
-        res.send(job);
+        if (result.length === 0) {
+            let query = "INSERT INTO jobs VALUES ('" + req.body.jobName + "'," + req.body.partId + "," + req.body.qty + ")";
+            db.query(query, (err, result) => {
+                if (err) {
+                    throw err;
+                }
+                res.send({"status": true, "message": "Job Added"});
+            });
+        } else {
+            res.send({"status": false, "message": "Job already exists"});
         }
     });
 }
 
-const getJobs = (req,res) => {
-    let sql="select * from jobs where jobName = '"+req.query.jobName+"'";
-    let query=db.query(sql,(err,job)=>{
-        if(err){
+const deleteJob = (req, res) => {
+    let query = "DELETE FROM jobs WHERE jobName = '" + req.body.jobName + "' and partId= " + req.body.partId;
+    db.query(query, (err, result) => {
+        if (err) {
             throw err;
         }
-        console.log(job);
-        res.send(job);
+        res.send({"status": true});
+    });
+}
+
+const editJob = (req, res) => {
+    let query = "SELECT * FROM jobs WHERE jobName = '" + req.body.jobName + "' and partId= " + req.body.partId;
+    db.query(query, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        if (result.length === 0) {
+            res.send({"status": false, "message": "Job does not exists"});
+        } else {
+            let query = "UPDATE jobs SET qty =" + req.body.qty + " WHERE jobName='" + req.body.jobName + "' and partId= " + req.body.partId;
+            db.query(query, (err, result) => {
+                if (err) {
+                    throw err;
+                }
+                res.send({"status": true});
+            });
+        }
+    });
+}
+
+const getOneJob = (req, res) => {
+    let query = "SELECT * FROM jobs WHERE jobName = '" + req.query.jobName + "' and partId= " + req.query.partId;
+    db.query(query, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        if (result.length === 0) {
+            res.send({"status": false, "message": "Job does not exists"});
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+const getJobs = (req, res) => {
+    let query = "SELECT * FROM jobs WHERE jobName = '" + req.query.jobName + "'";
+    db.query(query, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.send(result);
     });
 }
 
