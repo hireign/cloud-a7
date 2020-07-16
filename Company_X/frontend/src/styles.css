@@ -1,0 +1,6 @@
+*{margin: 0; padding: 0}
+ol, ul { list-style: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+a { text-decoration:none; outline:none}
+a:hover { cursor:pointer; text-decoration:none; text-indent:0}
+body{font-family: Arial, serif}
