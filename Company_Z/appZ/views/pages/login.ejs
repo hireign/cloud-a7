@@ -1,0 +1,136 @@
+<html>
+<head>
+<style>
+form {
+  border: 3px solid #f1f1f1;
+}
+.home{
+				position: absolute;
+    margin-top: -40px;
+			 }
+.header{
+  height: 80px;
+    padding: 10px;
+                background-color: #34675c;
+                 
+                 color: white;
+				 text-align: center;
+                 font-weight: 500;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 160px;
+
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+form{
+  border:none;
+}
+</style>
+</head>
+
+<body>
+  <script>
+    function validateForm() {
+      var s = window.localStorage.getItem('jobnamekey');
+      console.log(s)
+      document.getElementById('hidTest').value = s;
+      return true;
+    }
+  </script>
+
+<div class="header">
+  <div class="home">
+    <form action="/" method="GET" class="m-5">
+      <center> <button style="color:white;font-weight: 500;border-radius: 10px;line-height: 1px;width: 200px ;height: 35px;border:1px solid white;background:#7da3a1;" class="btn"> Home </button> </center>
+    </form>
+    </div>
+  <h1><center> Login here <center> </h1>
+    </div>
+<form action="/login_api" method="GET" onsubmit="return validateForm();">
+
+  <div class="container">
+    <label for="uname"><b>Email ID</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input name="hidTest" id="hidTest" type="hidden" value="testIt">
+    <br>
+    <br>
+    <button style=" border: 1px solid black;
+    font-weight: 500;
+    background: #7da3a1;
+    color: white;font-size: 21px;
+    height: 45px;
+    line-height: 1px;border-radius: 10px;" id="login" type="submit">Login</button>
+
+  </div>
+
+</form>
+
+</body>
+</html>

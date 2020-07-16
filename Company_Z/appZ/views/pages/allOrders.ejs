@@ -1,0 +1,66 @@
+<head>
+    <style>
+          .header{
+                height: 80px;
+    padding: 10px;
+                background-color: #34675c;
+                 
+                 color: white;
+                 font-weight: 500;
+             }
+
+             .section{
+                 margin-top: 100px;
+             }
+
+             .home{
+				position: absolute;
+    margin-top: -40px;
+			 }
+
+             
+    </style>
+</head>
+
+<div class="header">
+    <div class="home">
+    <form action="/" method="GET" class="m-5">
+        <center> <button  style="color:white;font-weight: 500;border-radius: 10px;line-height: 1px;width: 200px ;height: 35px;border:1px solid white;background:#7da3a1 ;" class="btn"> Home </button> </center>
+    </form>
+    </div>
+<h1 class ="display-4" style="text-align: center;">Orders</h1>
+</div>
+<br>
+<br>
+<br>
+<div class="section" style="width:700px; margin:auto">
+    <table class = "table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>User Id</th>
+                <th>Job Name</th>
+                <th>Part Id</th>
+                <th>Quantity</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orders17.forEach(function(orders17){ %>
+                <tr>
+                    <td><%= orders17.id %></td>
+                    <td><%= orders17.jobName %></td>
+                    <td><%= orders17.partId %></td>
+                    <td><%= orders17.qty %></td>
+                    <td><%= orders17.date %></td>
+                    <td><%= orders17.time %></td>
+                    <td><%= orders17.result %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <!-- <form action="/" method="GET" class="m-5">
+        <center> <button class="btn btn-primary"> Home </button> </center>
+    </form> -->
+</div>

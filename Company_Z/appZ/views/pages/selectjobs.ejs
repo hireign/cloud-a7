@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.section{
+			margin-top: 100px;
+			text-align: center;
+			border: 2px solid black;
+
+    margin-left: 260px;
+    margin-right: 260px;
+	padding: 40px;
+
+		}
+
+		.btn{
+			border: 2px solid black;
+                 font-weight: 500;
+                 background: #7da3a1;
+                 color: white;
+				 width: 300px;
+    height: 45px;
+
+		}
+
+		.header{
+                height: 80px;
+    padding: 10px;
+                background-color: #34675c;
+
+                 color: white;
+				 text-align: center;
+                 font-weight: 500;
+             }
+			 .home{
+				position: absolute;
+    margin-top: -40px;
+			 }
+	</style>
+<title>Title of the document</title>
+</head>
+
+<body>
+	<div class="header">
+		<div class="home">
+		<form action="/" method="GET" class="m-5">
+			<center> <button style="border-radius: 10px;line-height: 1px;width: 200px ;height: 35px;border:1px solid white;" class="btn"> Home </button> </center>
+		</form>
+		</div>
+<h1>Order your parts</h1>
+	</div>
+<div class="section">
+		<label for="jobs"><h2>Choose a job:</h2></label> <form name="myform"
+		action="/fetchparts" onsubmit="return myFunction()" method="GET">
+
+
+			<select name="jobs" id="jobs" style="margin-left:1%;"></select>
+<br>
+			<br>
+			<h4> OR </h4>
+			<input type="text" name="searchjob" id="jobName" placeholder="Search job">
+			<br>
+			<br>
+			<br>
+			<br>
+			<input type="submit" value="Submit" class="btn">
+		</form>
+		</div>
+	<script>
+
+		const fetchjobs = "http://129.173.67.217:1337/fetchjobs"
+
+		var data;
+
+		var arr=new Set();
+
+		async function getjobs(){
+			const response = await fetch(fetchjobs);
+			data = await response.json()
+
+			console.log(data)
+
+
+		for(var i=0;i<data.length;i++){
+			arr.add(data[i].jobName)
+		}
+
+		console.log(arr);
+
+			var select = document.getElementById("jobs");
+			arr.forEach(async function (arrayItem) {
+			    let jobname = arrayItem
+
+			    var el = document.createElement("option");
+			    el.text = jobname;
+			    el.value = jobname;
+
+			    select.add(el);
+
+   			});
+		}
+
+		getjobs()
+
+		function myFunction(){
+			var x = document.getElementById("jobs");
+			localStorage.setItem("jobnamekey", x.value);
+
+			const jobName = document.getElementById("jobName").value;
+
+			console.log()
+
+			if(jobName === ""){
+				return true;
+			}
+
+			if(arr.has(jobName)){
+				return true;
+			}else{
+				alert("Job " + jobName + " does not exist");
+				return false;
+			}
+
+		}
+	</script>
+<br>
+<br>
+
+<!-- <form action="/" method="GET" class="m-5">
+	<center> <button class="btn"> Home </button> </center>
+</form> -->
+
+</body>
+
+</html>
