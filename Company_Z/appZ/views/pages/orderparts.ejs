@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+
+#button{
+			border: 2px solid black;
+                 font-weight: 500;
+                 background: #7da3a1;
+                 color: white;
+				 width: 300px;
+    height: 45px;
+
+		}
+	.section{
+		text-align: center;
+	}
+     .home{
+				position: absolute;
+    margin-top: -40px;
+			 }
+.header{
+                height: 80px;
+    padding: 10px;
+                background-color: #34675c;
+                 
+                 color: white;
+                 font-weight: 500;
+             }
+	table, th, td{
+	padding: 10px;
+	border: 2px solid black;
+	border-collapse: collapse;
+	}
+</style>
+
+<title>Title of the document <%= parts %></title>
+</head>
+
+<body>
+	<div class="header">
+		<div class="home">
+			<form action="/" method="GET" class="m-5">
+				<center> <button style="color:white;font-weight: 500;border-radius: 10px;line-height: 1px;width: 200px ;height: 35px;border:1px solid white;background:#7da3a1 ;" class="btn"> Home </button> </center>
+			</form>
+			</div>
+<center><h1>Parts Information For Jobs</h1></center>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="section">
+<center><table>
+	<thread>
+	<tr>
+	<th> Part ID </th>
+	<th> part Name </th>
+	<th> Quantity </th>
+	</tr>
+	</thread>
+	<tbody>
+		<% parts.forEach(function(part){ %>
+		<tr>
+		<td> <%= part.id %> </td>
+		<td> <%= part.partName %> </td>
+		<td> <%= part.qty %> </td>
+		</tr>
+		<% }) %>
+	</tbody>
+	</table></center>
+	<br>
+	<br>
+	<br>
+	<form action="/login">
+		<input type="submit" id="button" value="Buy all parts">
+	</form>
+
+</div>
+	<script>
+
+
+	</script>
+
+</body>
+
+</html>
