@@ -1,0 +1,14 @@
+<div class="wrapper">
+
+    <div (click)="expand()" class="menu"></div>
+  
+    <nav class="navbar" [ngClass]="{'show': showing, 'hide': !showing}" (mouseleave)="expand()">
+      <ul>
+        <li *ngFor="let item of items">
+          <div class="label">{{item.name}}</div>
+          <a routerLink="{{item.url}}" routerLinkActive="active"></a>
+          <div class="arrow"></div>
+        </li>
+      </ul>
+    </nav>
+  </div>

@@ -1,0 +1,54 @@
+.navbar{
+    height: 36px;
+    overflow: hidden;
+    background: #000000;
+    border-radius: 5px;
+  }
+  
+  .navbar li{
+    position: relative;
+    width: 150px;
+    padding: 0 20px;
+    height: 36px;
+    float: left;
+    border-radius: 5px;
+  }
+  
+  .navbar li .label{
+    font-size: 20px;
+    line-height: 26px;
+    color: #ffffff;
+    margin-top: 5px;
+    font-family: Arial, serif;
+  }
+  
+  .navbar li a{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+  }
+  
+  .navbar li .arrow{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    margin-top: -9px;
+  }
+  
+  .navbar li:hover{
+    background: #ffffff;
+  }
+  
+  .navbar li:hover .label{
+    color: #000000;
+  }
+  
+  .navbar li:hover .arrow{
+    background: #000000;
+  }
