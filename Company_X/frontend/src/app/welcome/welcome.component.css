@@ -1,0 +1,9 @@
+.welcome{
+  font-size: 100px;
+  text-align: center;
+  color: #ffffff;
+  height: 90vh;
+  width: 100%;
+  line-height: 90vh;
+  z-index: -999;
+}

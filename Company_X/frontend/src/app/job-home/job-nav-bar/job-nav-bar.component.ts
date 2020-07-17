@@ -8,11 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class JobNavBarComponent implements OnInit {
 
   public items = [
-    {'name': 'Home', 'url': 'login'},
-    {'name': 'All Jobs', 'url': 'register'},
-    {'name': 'Find Job', 'url': 'explain'},
-    {'name': 'Add Job', 'url': 'aboutus'},
-    {'name': 'Update Job', 'url': 'aboutus'}
+    {'name': 'All Jobs', 'url': 'alljobs'},
+    {'name': 'Find Job', 'url': 'findjob'},
+    {'name': 'Add Job', 'url': 'addjob'},
+    {'name': 'Update Job', 'url': 'updatejob'}
   ];
 
   constructor() { }

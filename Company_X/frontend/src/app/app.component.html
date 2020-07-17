@@ -1,5 +1,7 @@
-<h1>Company X</h1>
-<button [routerLink]="['job']">Job</button>
-<button [routerLink]="['order']">Order</button>
+<div class="main-nav">
+  <div class="main-nav-redirect" [routerLink]="['/']">Company X</div>
+  <div class="main-nav-redirect" [routerLink]="['/job']">Job</div>
+  <div class="main-nav-redirect" [routerLink]="['/order']">Order</div>
+</div>
 
 <router-outlet></router-outlet>

@@ -8,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class OrderNavBarComponent implements OnInit {
 
   public items = [
-    {'name': 'Home', 'url': 'login'},
-    {'name': 'All orders', 'url': 'register'},
-    {'name': 'Search order', 'url': 'explain'},
+    {'name': 'All Orders', 'url': 'allorders'},
+    {'name': 'Search Order', 'url': 'searchorder'},
   ];
 
   constructor() { }

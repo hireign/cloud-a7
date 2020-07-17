@@ -1,0 +1,35 @@
+.navbar{
+  height: 40px;
+  overflow: hidden;
+  background: linear-gradient(-90deg, #00314B, #00314B, #00314B, #21536d, #21536d);
+}
+
+.navbar ul{
+  display: flex;
+}
+
+.navbar li{
+  position: relative;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.navbar li .label{
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.navbar li a{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.navbar li:hover .label{
+  text-decoration: underline;
+}
