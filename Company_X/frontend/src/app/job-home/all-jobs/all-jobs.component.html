@@ -1,1 +1,12 @@
-<p>all-jobs works!</p>
+<table>
+  <tr class="head-row">
+    <th>Job Name</th>
+    <th>Part ID</th>
+    <th>Quantity</th>
+  </tr>
+  <tr *ngFor="let item of allJobs">
+    <td>{{item.jobName}}</td>
+    <td>{{item.partId}}</td>
+    <td>{{item.qty}}</td>
+  </tr>
+</table>

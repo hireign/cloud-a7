@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-all-jobs',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllJobsComponent implements OnInit {
 
-  constructor() { }
+  public allJobs = [];
 
-  ngOnInit() {
+  constructor(private http: HttpClient) { }
+
+  async ngOnInit() {
+    await this.getAllJobs();
+    console.log(this.allJobs);
   }
 
+  private async getAllJobs() {
+    const data = await this.http.get<any>("http://localhost:3000/job/alljobs").toPromise();
+    if(data.status == true){
+      this.allJobs = data.message;
+    }
+  }
 }

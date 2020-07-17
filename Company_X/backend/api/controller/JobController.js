@@ -1,12 +1,14 @@
 const db = require('../db/sql')
 
 const allJobs = (req, res) => {
-    const query = 'SELECT * FROM jobs';
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        res.send(JSON.stringify(result));
+    return new Promise(function(resolve, reject) {
+        const query = 'SELECT * FROM jobs';
+        db.query(query, (err, result) => {
+            if (err) {
+                return reject({status: false, message: "Database Issue"})
+            }
+            resolve({status: true, message: result});
+        });
     });
 }
 

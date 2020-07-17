@@ -14,6 +14,7 @@ import { UpdateJobComponent } from './job-home/update-job/update-job.component';
 import { AllOrdersComponent } from './order-home/all-orders/all-orders.component';
 import { SearchOrderComponent } from './order-home/search-order/search-order.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
