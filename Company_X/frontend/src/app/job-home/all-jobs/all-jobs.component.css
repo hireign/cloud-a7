@@ -22,7 +22,6 @@ table th {
   padding-top: 12px;
   padding-bottom: 12px;
   font-size: 23px;
-  /*background: #21536d;*/
   border-left-color: transparent;
   border-right-color: transparent;
   border-bottom-width: 4px;
@@ -30,4 +29,13 @@ table th {
 
 .head-row{
   background: linear-gradient(90deg, #21536d, #00314B, #21536d);
+}
+
+table button{
+  height: 30px;
+  width: 100%;
+  font-size: 20px;
+  color: #ffffff;
+  background: #F44336;
+  border: 1px solid #F44336;
 }

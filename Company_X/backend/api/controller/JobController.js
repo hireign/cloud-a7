@@ -1,6 +1,6 @@
 const db = require('../db/sql')
 
-const allJobs = (req, res) => {
+const allJobs = () => {
     return new Promise(function(resolve, reject) {
         const query = 'SELECT * FROM jobs';
         db.query(query, (err, result) => {
@@ -8,6 +8,22 @@ const allJobs = (req, res) => {
                 return reject({status: false, message: "Database Issue"})
             }
             resolve({status: true, message: result});
+        });
+    });
+}
+
+const getOneJob = (jobName, partId) => {
+    return new Promise(function(resolve, reject) {
+        const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
+        db.query(query, (err, result) => {
+            if (err) {
+                return reject({status: false, message: "Database Issue"});
+            }
+            if (result.length === 0) {
+                resolve({status: false, message: "Job does not exist"})
+            } else {
+                resolve({status: true, message: result});
+            }
         });
     });
 }
@@ -58,20 +74,6 @@ const editJob = (req, res) => {
                 }
                 res.send({"status": true, "message": "Job modified"});
             });
-        }
-    });
-}
-
-const getOneJob = (req, res) => {
-    let query = "SELECT * FROM jobs WHERE jobName = '" + req.query.jobName + "' and partId= " + req.query.partId;
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        if (result.length === 0) {
-            res.send({"status": false, "message": "Job does not exist"});
-        } else {
-            res.send(result);
         }
     });
 }

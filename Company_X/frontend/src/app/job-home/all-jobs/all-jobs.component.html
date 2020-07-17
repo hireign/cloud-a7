@@ -3,10 +3,12 @@
     <th>Job Name</th>
     <th>Part ID</th>
     <th>Quantity</th>
+    <th>Action</th>
   </tr>
   <tr *ngFor="let item of allJobs">
     <td>{{item.jobName}}</td>
     <td>{{item.partId}}</td>
     <td>{{item.qty}}</td>
+    <td><button (click)="deleteJob(item.jobName, item.partId)">Delete</button></td>
   </tr>
 </table>

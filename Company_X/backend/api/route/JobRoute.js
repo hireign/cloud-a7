@@ -7,7 +7,13 @@ router.get('/alljobs', async function (req, res) {
     res.send(data);
 });
 
-router.get('/onejob',method.getOneJob);
+router.get('/onejob', async function (req, res) {
+    const data = await method.getOneJob(req.query.jobName, req.query.partId);
+    res.send(data);
+});
+
+
+
 router.get('/getparts',method.getJobs);
 router.post('/addjob',method.addJob);
 router.put('/modifyjob',method.editJob);

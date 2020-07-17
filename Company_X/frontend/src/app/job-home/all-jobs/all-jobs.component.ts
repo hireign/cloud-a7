@@ -14,7 +14,6 @@ export class AllJobsComponent implements OnInit {
 
   async ngOnInit() {
     await this.getAllJobs();
-    console.log(this.allJobs);
   }
 
   private async getAllJobs() {
@@ -22,5 +21,9 @@ export class AllJobsComponent implements OnInit {
     if(data.status == true){
       this.allJobs = data.message;
     }
+  }
+
+  public deleteJob(job, partId) {
+
   }
 }
