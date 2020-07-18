@@ -40,6 +40,4 @@ const addOrder = (partId, jobName, userId, qty) => {
     });
 }
 
-module.exports.allOrders = allOrders;
-module.exports.specificOrder = specificOrder;
 module.exports.addOrder = addOrder;

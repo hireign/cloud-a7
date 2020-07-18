@@ -1,0 +1,24 @@
+<h1 class ="display-4" style="text-align: center;">Orders</h1>
+<div style="width:700px; margin:auto">
+    <table class = "table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Part Id</th>
+                <th>Job Name</th>
+                <th>User Id</th>
+                <th>Quantity</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <% orders17.forEach(function(orders17){ %>
+                <tr>
+                    <td><%= orders17.id %></td>
+                    <td><%= orders17.jobName %></td>
+                    <td><%= orders17.userId %></td>
+                    <td><%= orders17.qty %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
