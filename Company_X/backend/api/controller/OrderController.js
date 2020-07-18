@@ -5,7 +5,7 @@ const allOrders = () => {
         const query='SELECT * FROM PartOrdersX';
         con.query(query,(err, result) => {
             if(err){
-                return reject({status: false, message: "Database Issue"});
+                return resolve({status: false, message: "Field format is wrong!!"});
             }
             resolve({status: true, message: result});
         });
@@ -17,10 +17,10 @@ const specificOrder = (jobName) => {
         const query = "SELECT * FROM PartOrdersX WHERE jobName='" + jobName + "' ORDER BY jobName ASC, userId ASC, partId ASC";
         con.query(query, (err, result) => {
             if (err) {
-                return reject({status: false, message: "Database Issue"});
+                return resolve({status: false, message: "Field format is wrong!!"});
             }
             if (result.length === 0) {
-                resolve({status: false, message: "Orders with provided jobname does not exist"})
+                resolve({status: false, message: "Orders with provided job name does not exist"})
             } else {
                 resolve({status: true, message: result});
             }
@@ -28,13 +28,15 @@ const specificOrder = (jobName) => {
     });
 }
 
-const addOrder = (req, res) => {
-    const query = "INSERT INTO PartOrdersX VALUES ('" + req.body.partId + "', '" + req.body.jobName + "','" + req.body.userId + "'," + req.body.qty + ")";
+const addOrder = (partId, jobName, userId, qty) => {
+    return new Promise(function(resolve, reject) {
+        const query = "INSERT INTO PartOrdersX VALUES ('" + partId + "', '" + jobName + "','" + userId + "'," + qty + ")";
         con.query(query,(err, result) => {
-        if(err){
-            throw err;
-        }
-        res.send({"status": true});
+            if(err){
+                resolve({status: false});
+            }
+            resolve({status: true});
+        });
     });
 }
 

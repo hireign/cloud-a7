@@ -13,6 +13,9 @@ router.get('/oneorder', async function (req, res) {
     res.send(data);
 });
 
-router.post('/addorder', method.addOrder);
+router.post('/addorder', async function (req, res) {
+    const data = await method.addOrder(req.body.partId, req.body.jobName, req.body.userId, req.body.qty);
+    res.send(data);
+});
 
 module.exports = router;
