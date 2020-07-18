@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const serverless = require('serverless-http');
 const JobRoute = require('./api/route/JobRoute');
 const OrderRoute = require('./api/route/OrderRoute');
 
@@ -19,6 +20,8 @@ app.get('/', function (req, res) {
 app.use('/job', JobRoute);
 app.use('/order', OrderRoute);
 
-app.listen(3000, function () {
-    console.log("App is running on port 3000");
-});
+// app.listen(3000, function () {
+//     console.log("App is running on port 3000");
+// });
+
+module.exports.handler = serverless(app);
