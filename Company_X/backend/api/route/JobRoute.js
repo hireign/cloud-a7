@@ -22,12 +22,12 @@ router.post('/addjob', async function (req, res) {
     res.send(data);
 });
 
-router.post('/modifyjob', async function (req, res) {
+router.put('/modifyjob', async function (req, res) {
     const data = await method.editJob(req.body.jobName, req.body.partId, req.body.qty);
     res.send(data);
 });
 
-router.post('/deletejob', async function (req, res) {
+router.put('/deletejob', async function (req, res) {
     const data = await method.deleteJob(req.body.jobName, req.body.partId);
     res.send(data);
 });

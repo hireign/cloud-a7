@@ -89,7 +89,7 @@ const deleteJob = (jobName, partId) => {
         const query = "DELETE FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
         con.query(query, (err, result) => {
             if (err) {
-                return resolve({status: false, message: "Field format is wrong!!"});
+                return resolve({status: false, message: "Database Issue"});
             }
             resolve({status: true, message: "Job deleted!!"});
         });
