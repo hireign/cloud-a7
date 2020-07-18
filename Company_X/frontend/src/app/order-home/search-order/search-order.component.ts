@@ -9,46 +9,48 @@ import {HttpClient} from "@angular/common/http";
 })
 export class SearchOrderComponent implements OnInit {
 
-  
-  findJob = this.fb.group({
+
+  findOrder = this.fb.group({
     jn: ['', [Validators.required]]
   });
 
   IsSubmitted = false;
-  error = false;
-  oneJob = [];
+  noMatch = false;
+  order = [];
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
   }
 
+  get control(){
+    return this.findOrder.controls;
+  }
+
   async submit() {
     this.IsSubmitted = true;
-    this.error = false;
+    this.noMatch = false;
 
-    if(this.findJob.valid){
-      const url = "http://localhost:3000/order/oneorder?jobName=" + this.findJob.value.jn + "";
-      await this.getJob(url);
+    if(this.findOrder.valid){
+      const url = "http://localhost:3000/order/oneorder?jobName=" + this.findOrder.value.jn;
+      await this.getOrder(url);
     }
   }
 
-  private async getJob(url) {
-    this.oneJob = [];
+  private async getOrder(url) {
+    this.order = [];
     const data = await this.http.get<any>(url).toPromise();
     if(data.status == true){
-      this.oneJob = data.message;
+      this.order = data.message;
       this.reset();
     }else{
-      return;
+      this.noMatch = true;
     }
-
-    console.log(this.oneJob);
   }
 
   reset() {
     this.IsSubmitted = false;
-    this.findJob.reset();
+    this.findOrder.reset();
   }
 
 }

@@ -9,7 +9,7 @@ export class OrderNavBarComponent implements OnInit {
 
   public items = [
     {'name': 'All Orders', 'url': 'allorders'},
-    {'name': 'Search Order', 'url': 'searchorder'},
+    {'name': 'Find Order', 'url': 'findorder'},
   ];
 
   constructor() { }

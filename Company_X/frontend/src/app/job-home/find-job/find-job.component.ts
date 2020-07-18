@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -15,7 +15,7 @@ export class FindJobComponent implements OnInit {
   });
 
   IsSubmitted = false;
-  error = false;
+  noMatch = false;
   oneJob = [];
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
@@ -23,9 +23,13 @@ export class FindJobComponent implements OnInit {
   ngOnInit() {
   }
 
+  get control(){
+    return this.findJob.controls;
+  }
+
   async submit() {
     this.IsSubmitted = true;
-    this.error = false;
+    this.noMatch = false;
 
     if(this.findJob.valid){
       const url = "http://localhost:3000/job/onejob?jobName=" + this.findJob.value.jn + "&partId=" + this.findJob.value.pid + "";
@@ -40,10 +44,8 @@ export class FindJobComponent implements OnInit {
       this.oneJob = data.message;
       this.reset();
     }else{
-      return;
+      this.noMatch = true;
     }
-
-    console.log(this.oneJob);
   }
 
   reset() {

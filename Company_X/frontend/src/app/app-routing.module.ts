@@ -29,7 +29,7 @@ const routes: Routes = [
     path: "order", component: OrderHomeComponent, children: [
       { path: "", redirectTo: "order", pathMatch: "full"},
       { path: "allorders", component: AllOrdersComponent, outlet: "order"},
-      { path: "searchorder", component: SearchOrderComponent, outlet: "order"}
+      { path: "findorder", component: SearchOrderComponent, outlet: "order"}
     ]
   }
 ];

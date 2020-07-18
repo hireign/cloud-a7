@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-all-jobs',
@@ -10,20 +10,28 @@ export class AllJobsComponent implements OnInit {
 
   public allJobs = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   async ngOnInit() {
     await this.getAllJobs();
   }
 
   private async getAllJobs() {
-    const data = await this.http.get<any>("http://localhost:3000/job/alljobs").toPromise();
-    if(data.status == true){
+    const data = await this.http.get<any>('http://localhost:3000/job/alljobs').toPromise();
+    if (data.status == true) {
       this.allJobs = data.message;
     }
   }
 
-  public deleteJob(job, partId) {
+  public async deleteJob(job, partId) {
 
+    const body = {jobName: job, partId: partId};
+    const url = 'http://localhost:3000/job/deletejob';
+    const data = await this.http.put<any>(url, body).toPromise();
+    alert(data.message);
+    if (data.status == true) {
+      await this.getAllJobs();
+    }
   }
 }

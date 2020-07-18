@@ -6,6 +6,13 @@ table {
   border: 4px solid #ffffff;
 }
 
+caption{
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  margin: -20px 0 20px;
+}
+
 table td, table th {
   border: 3px solid #ffffff;
   padding: 15px;
@@ -37,5 +44,16 @@ table button{
   font-size: 20px;
   color: #ffffff;
   background: #F44336;
-  border: 1px solid #F44336;
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 2px 2px #ffffff;
+}
+
+table button:hover{
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+}
+
+table button:active{
+  transform: translate(2px, 2px);
 }
