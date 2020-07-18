@@ -1,0 +1,23 @@
+.main-nav{
+  width: 450px;
+  height: 40px;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.main-nav-redirect{
+  width: 150px;
+  line-height: 40px;
+  border-radius: 0;
+  outline: none;
+  font-size: 20px;
+  text-align: center;
+  background: transparent;
+  color: #ffffff;
+  z-index: 999;
+}
+
+.main-nav-redirect:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

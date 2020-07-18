@@ -1,0 +1,29 @@
+<form [formGroup]="findOrder" (ngSubmit)="submit()" class="form">
+
+  <div class="input-section">
+    <label for="jobName">Job Name</label>
+    <input type="text" id="jobName" placeholder="Job Name" class="inp" formControlName="jn"/>
+    <div *ngIf="IsSubmitted && control.jn.errors" class="error">
+      <div *ngIf="control.jn.errors.required">Job Name is required</div>
+    </div>
+  </div>
+
+  <button class="submit">Find Order</button>
+</form>
+
+<div *ngIf="noMatch" class="noMatch">No match found for given input!!</div>
+
+<table *ngIf="order.length === 1">
+  <tr class="head-row">
+    <th>Job Name</th>
+    <th>Part ID</th>
+    <th>User ID</th>
+    <th>Quantity</th>
+  </tr>
+  <tr *ngFor="let item of order">
+    <td>{{item.jobName}}</td>
+    <td>{{item.partId}}</td>
+    <td>{{item.userId}}</td>
+    <td>{{item.qty}}</td>
+  </tr>
+</table>

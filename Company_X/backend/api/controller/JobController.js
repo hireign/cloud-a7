@@ -1,93 +1,104 @@
-const db = require('../db/sql')
+const con = require('../db/sql')
 
-const allJobs = (req, res) => {
-    const query = 'SELECT * FROM jobs';
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        res.send(JSON.stringify(result));
+const allJobs = () => {
+    return new Promise(function(resolve, reject) {
+        const query = 'SELECT * FROM jobs';
+        con.query(query, (err, result) => {
+            if (err) {
+                return resolve({status: false, message: "Field format is wrong!!"})
+            }
+            resolve({status: true, message: result});
+        });
     });
 }
 
-const addJob = (req, res) => {
-    let query = "SELECT * FROM jobs WHERE jobName = '" + req.body.jobName + "' and partId= " + req.body.partId;
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        if (result.length === 0) {
-            let query = "INSERT INTO jobs VALUES ('" + req.body.jobName + "'," + req.body.partId + "," + req.body.qty + ")";
-            db.query(query, (err, result) => {
-                if (err) {
-                    throw err;
-                }
-                res.send({"status": true, "message": "Job Added"});
-            });
-        } else {
-            res.send({"status": false, "message": "Job already exists"});
-        }
+const getOneJob = (jobName, partId) => {
+    return new Promise(function(resolve, reject) {
+        const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
+        con.query(query, (err, result) => {
+            if (err) {
+                return resolve({status: false, message: "Field format is wrong!!"});
+            }
+            if (result.length === 0) {
+                resolve({status: false, message: "Job does not exist"})
+            } else {
+                resolve({status: true, message: result});
+            }
+        });
     });
 }
 
-const deleteJob = (req, res) => {
-    let query = "DELETE FROM jobs WHERE jobName = '" + req.body.jobName + "' and partId= " + req.body.partId;
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        res.send({"status": true});
+const getJobs = (jobName) => {
+    return new Promise(function(resolve, reject) {
+        const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "'";
+        con.query(query, (err, result) => {
+            if (err) {
+                return resolve({status: false, message: "Field format is wrong!!"});
+            }
+            resolve({status: true, message: result});
+        });
     });
 }
 
-const editJob = (req, res) => {
-    let query = "SELECT * FROM jobs WHERE jobName = '" + req.body.jobName + "' and partId= " + req.body.partId;
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        if (result.length === 0) {
-            res.send({"status": false, "message": "Job does not exist"});
-        } else {
-            let query = "UPDATE jobs SET qty =" + req.body.qty + " WHERE jobName='" + req.body.jobName + "' and partId= " + req.body.partId;
-            db.query(query, (err, result) => {
-                if (err) {
-                    throw err;
-                }
-                res.send({"status": true, "message": "Job modified"});
-            });
-        }
+const addJob = (jobName, partId, qty) => {
+    return new Promise(function(resolve, reject) {
+        const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
+        con.query(query, (err, result) => {
+            if (err) {
+                return resolve({status: false, message: "Field format is wrong!!"});
+            }
+            if (result.length === 0) {
+                const query = "INSERT INTO jobs VALUES ('" + jobName + "'," + partId + "," + qty + ")";
+                con.query(query, (err, result) => {
+                    if (err) {
+                        return resolve({status: false, message: "Field format is wrong!!"});
+                    }
+                    resolve({status: true, message: "Job added successfully!!"});
+                });
+            } else {
+                resolve({status: false, message: "Job already exists!!"});
+            }
+        });
     });
 }
 
-const getOneJob = (req, res) => {
-    let query = "SELECT * FROM jobs WHERE jobName = '" + req.query.jobName + "' and partId= " + req.query.partId;
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        if (result.length === 0) {
-            res.send({"status": false, "message": "Job does not exist"});
-        } else {
-            res.send(result);
-        }
+const editJob = (jobName, partId, qty) => {
+    return new Promise(function(resolve, reject) {
+        const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
+        con.query(query, (err, result) => {
+            if (err) {
+                return resolve({status: false, message: "Field format is wrong!!"});
+            }
+            if (result.length === 0) {
+                resolve({status: false, message: "Job does not exist!!"});
+            } else {
+                let query = "UPDATE jobs SET qty =" + qty + " WHERE jobName='" + jobName + "' and partId= " + partId;
+                con.query(query, (err, result) => {
+                    if (err) {
+                        return resolve({status: false, message: "Field format is wrong!!"});
+                    }
+                    resolve({status: true, message: "Job modified successfully!!"});
+                });
+            }
+        });
     });
 }
 
-const getJobs = (req, res) => {
-    let query = "SELECT * FROM jobs WHERE jobName = '" + req.query.jobName + "'";
-    db.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        res.send(result);
+const deleteJob = (jobName, partId) => {
+    return new Promise(function(resolve, reject) {
+        const query = "DELETE FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
+        con.query(query, (err, result) => {
+            if (err) {
+                return resolve({status: false, message: "Database Issue"});
+            }
+            resolve({status: true, message: "Job deleted!!"});
+        });
     });
 }
 
+module.exports.allJobs = allJobs;
 module.exports.getOneJob = getOneJob;
 module.exports.getJobs = getJobs;
+module.exports.addJob = addJob;
 module.exports.editJob = editJob;
 module.exports.deleteJob = deleteJob;
-module.exports.allJobs = allJobs;
-module.exports.addJob = addJob;
-

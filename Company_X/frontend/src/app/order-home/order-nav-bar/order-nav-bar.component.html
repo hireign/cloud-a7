@@ -1,0 +1,8 @@
+<nav class="navbar">
+  <ul>
+    <li *ngFor="let item of items">
+      <div class="label">{{item.name}}</div>
+      <a [routerLink]="['/order', {outlets: {'order': [item.url]}}]" routerLinkActive="active"></a>
+    </li>
+  </ul>
+</nav>

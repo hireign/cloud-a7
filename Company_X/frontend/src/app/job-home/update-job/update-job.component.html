@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <div *ngIf="message.length > 0" class="message">{{message}}</div>
+  <form [formGroup]="updateJob" (ngSubmit)="submit()" class="form">
+
+    <div class="input-section">
+      <label for="jobName">Job Name</label>
+      <input type="text" id="jobName" placeholder="Job Name" class="inp" formControlName="jobName"/>
+      <div *ngIf="IsSubmitted && control.jobName.errors" class="error">
+        <div *ngIf="control.jobName.errors.required">Job Name is required</div>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <label for="partID">Part ID</label>
+      <input type="text" id="partID" placeholder="Part ID" class="inp" formControlName="partId"/>
+      <div *ngIf="IsSubmitted && control.partId.errors" class="error">
+        <div *ngIf="control.partId.errors.required">Part ID is required</div>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <label for="qty">Quantity</label>
+      <input type="text" id="qty" placeholder="Quantity" class="inp" formControlName="qty"/>
+      <div *ngIf="IsSubmitted && control.qty.errors" class="error">
+        <div *ngIf="control.qty.errors.required">Quantity is required</div>
+      </div>
+    </div>
+
+    <button class="submit">Update Job</button>
+  </form>
+</div>
