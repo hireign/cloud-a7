@@ -7,6 +7,8 @@ import {FindJobComponent} from './job-home/find-job/find-job.component';
 import {AddJobComponent} from './job-home/add-job/add-job.component';
 import {UpdateJobComponent} from './job-home/update-job/update-job.component';
 import {WelcomeComponent} from './welcome/welcome.component';
+import { AllOrdersComponent } from './order-home/all-orders/all-orders.component';
+import { SearchOrderComponent } from './order-home/search-order/search-order.component';
 
 
 const routes: Routes = [
@@ -26,8 +28,8 @@ const routes: Routes = [
   {
     path: "order", component: OrderHomeComponent, children: [
       { path: "", redirectTo: "order", pathMatch: "full"},
-      { path: "allorders", component: AllJobsComponent, outlet: "order"},
-      { path: "searchorder", component: FindJobComponent, outlet: "order"}
+      { path: "allorders", component: AllOrdersComponent, outlet: "order"},
+      { path: "searchorder", component: SearchOrderComponent, outlet: "order"}
     ]
   }
 ];

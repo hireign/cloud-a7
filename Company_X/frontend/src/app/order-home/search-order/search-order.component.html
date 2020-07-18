@@ -1,1 +1,32 @@
-<p>search-order works!</p>
+<form [formGroup]="findJob" (ngSubmit)="submit()">
+
+    <div class="input-section">
+      <label for="jobName">Job Name</label>
+      <input type="text" id="jobName" placeholder="Job Name" class="inp" formControlName="jn"/>
+  <!--    <div *ngIf="IsSubmitted && control.empid.errors" class="error">-->
+  <!--      <div *ngIf="control.empid.errors.required">Employee ID is required</div>-->
+  <!--    </div>-->
+    </div>
+  
+    <button class="submit">Register</button>
+    <div class="error">
+  <!--    <div *ngIf="error">No match found for given input!!</div>-->
+    </div>
+  
+  </form>
+  
+  <table *ngIf="oneJob.length === 1">
+    <tr class="head-row">
+      <th>Job Name</th>
+      <th>Part ID</th>
+      <th>User ID</th>
+      <th>Quantity</th>
+    </tr>
+    <tr *ngFor="let item of oneJob">
+      <td>{{item.jobName}}</td>
+      <td>{{item.partId}}</td>
+      <td>{{item.userId}}</td>
+      <td>{{item.qty}}</td>
+    </tr>
+  </table>
+  

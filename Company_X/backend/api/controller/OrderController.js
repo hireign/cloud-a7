@@ -1,22 +1,30 @@
 const con = require('../db/sql');
 
-const allOrders = (req, res) => {
-    const query='SELECT * FROM PartOrdersX';
-    con.query(query,(err, result) => {
-        if(err){
-            throw err;
-        }
-        res.send(JSON.stringify(result));
+const allOrders = () => {
+    return new Promise(function(resolve, reject) {
+        const query='SELECT * FROM PartOrdersX';
+        con.query(query,(err, result) => {
+            if(err){
+                return reject({status: false, message: "Database Issue"});
+            }
+            resolve({status: true, message: result});
+        });
     });
 }
 
-const specificOrder = (req, res) => {
-    const query = "SELECT * FROM PartOrdersX WHERE jobName='" + req.query.jobName + "' ORDER BY jobName ASC, userId ASC, partId ASC";
-    con.query(query,(err, result) => {
-        if(err){
-            throw err;
-        }
-        res.send(JSON.stringify(result));
+const specificOrder = (jobName) => {
+    return new Promise(function(resolve, reject) {
+        const query = "SELECT * FROM PartOrdersX WHERE jobName='" + jobName + "' ORDER BY jobName ASC, userId ASC, partId ASC";
+        con.query(query, (err, result) => {
+            if (err) {
+                return reject({status: false, message: "Database Issue"});
+            }
+            if (result.length === 0) {
+                resolve({status: false, message: "Orders with provided jobname does not exist"})
+            } else {
+                resolve({status: true, message: result});
+            }
+        });
     });
 }
 
