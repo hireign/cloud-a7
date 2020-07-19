@@ -10,7 +10,7 @@ const con = sql.createConnection({
 
 con.connect(function(err) {
     if(err){
-        console.log("Database connection unsuccessful");
+        console.log("Database connection unsuccessful" + err + " ");
         throw err;
     }else{
         console.log("Database connection successful");

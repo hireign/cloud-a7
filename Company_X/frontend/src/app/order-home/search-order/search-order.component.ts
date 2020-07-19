@@ -32,7 +32,7 @@ export class SearchOrderComponent implements OnInit {
     this.noMatch = false;
 
     if(this.findOrder.valid){
-      const url = "http://localhost:3000/order/oneorder?jobName=" + this.findOrder.value.jn;
+      const url = "https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/order/oneorder?jobName=" + this.findOrder.value.jn;
       await this.getOrder(url);
     }
   }
