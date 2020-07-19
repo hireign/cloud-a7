@@ -32,7 +32,7 @@ export class FindJobComponent implements OnInit {
     this.noMatch = false;
 
     if(this.findJob.valid){
-      const url = "https://ghc5n1arz7.execute-api.us-east-1.amazonaws.com/Dev/job/onejob?jobName=" + this.findJob.value.jn + "&partId=" + this.findJob.value.pid + "";
+      const url = "https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/job/onejob?jobName=" + this.findJob.value.jn + "&partId=" + this.findJob.value.pid + "";
       await this.getJob(url);
     }
   }
