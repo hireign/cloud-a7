@@ -1,0 +1,27 @@
+<h1 class ="display-4" style="text-align: center;">Parts</h1>
+<div style="width:700px; margin:auto">
+    <table class = "table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Part Id</th>
+                <th>Part Name</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% parts17.forEach(function(parts17){ %>
+                <tr>
+                    <td><%= parts17.id %></td>
+                    <td><%= parts17.partName %></td>
+                    <td><%= parts17.qoh %></td>
+                    <td>
+                        <form method="POST" action="/updatepart17/<%= parts17.id %>/<%= parts17.partName %>" class="d-inline">
+                            <button class="btn btn-primary">Update Quantity</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

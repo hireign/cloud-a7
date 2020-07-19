@@ -1,0 +1,44 @@
+<h1 class ="display-4" style="text-align: center;">Update Quantity</h1>
+<div style="width:350px; margin:auto; margin-top:50px; background-color: #f3f3f3; padding:30px">
+    <form method="POST" action="/updatequantity17/<%= parts17.id %>/<%= parts17.partName %>">
+        <table class="table table">
+            <tr>
+                <td style="width: 150px;">
+                    Part Id:
+                </td>
+                <td>
+                    <%= parts17.id %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Part Name:
+                </td>
+                <td>
+                    <%= parts17.partName %>
+                </td>     
+            </tr>
+            <tr>
+                <td>
+                    Quantity:
+                </td>
+                <td>
+                    <input type="number" name="qty" id="qty" min="0" placeholder="Quantity" value="<%= parts17.qoh %>" style="width:100px;" onkeyup="enableButton17()">
+                </td>
+            </tr>
+        </table>
+        <div class="text-center">
+            <input type="submit" value="Update" id="submit_button" class="btn btn-primary" style="margin:auto;">
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function enableButton17(){
+        var qty17 = document.getElementById("qty");
+        if(qty17.value.length > 0) { 
+            document.getElementById('submit_button').disabled = false; 
+        } else { 
+            document.getElementById('submit_button').disabled = true;
+        }
+    }
+</script>

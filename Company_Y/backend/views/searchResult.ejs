@@ -1,0 +1,26 @@
+
+<%if (result.length == 0) { %>
+    <div class="hint">NO ORDER FOUND FOR GIVEN INPUT</div>
+    <div class="submit adjust_2">
+        <span>Search Another Order</span>
+        <a href="/searchOrderPage"></a>
+    </div>
+<% } %>
+<%if (result.length > 0) { %>
+<table>
+    <tr>
+        <th>Job Name</th>
+        <th>Part ID</th>
+        <th>User ID</th>
+        <th>Quantity</th>
+    </tr>
+    <% result.forEach(function (res) { %>
+        <tr>
+            <td><%= res.jobName %></td>
+            <td><%= res.id %></td>
+            <td><%= res.userId %></td>
+            <td><%= res.qty %></td>
+        </tr>
+    <% }) %>
+</table>
+<% } %>

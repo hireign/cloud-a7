@@ -1,0 +1,32 @@
+<h1 class ="display-4" style="text-align: center;">Add a Part</h1>
+<div style="width:700px; margin:auto">
+    <form method="POST" action="/addpart17">
+        <div class="form-group">
+            <label for="partId">Part Id</label>
+            <input type="number" name="partId" id="partId" min="0" placeholder="Part id" class="form-control" onkeyup="enableButton17()">
+        </div>
+        <div class="form-group">
+            <label for="partName">part Name</label>
+            <input type="text" name="partName" id="partName" placeholder="part name" class="form-control" onkeyup="enableButton17()">
+        </div>
+        <div class="form-group">
+            <label for="qty">Quantity</label>
+            <input type="number" name="qty" id="qty" min="0" placeholder="Quantity" class="form-control" onkeyup="enableButton17()">
+        </div>
+        <div class="text-center">
+            <input type="submit" value="Add" id="submit_button" class="btn btn-primary" disabled>
+        </div>
+    </form>
+    <script type="text/javascript">
+        function enableButton17(){
+            var partId17 = document.getElementById("partId");
+            var partName17 = document.getElementById("partName");
+            var qty17 = document.getElementById("qty");
+            if(partName17.value.length > 0 && partId17.value.length > 0 && qty17.value.length > 0 ) { 
+                document.getElementById('submit_button').disabled = false; 
+            } else { 
+                document.getElementById('submit_button').disabled = true;
+            }
+        }
+    </script>
+</div>
