@@ -17,7 +17,7 @@ export class AllOrdersComponent implements OnInit {
   }
 
   private async getAllOrders() {
-    const data = await this.http.get<any>("http://localhost:3000/order/allorders").toPromise();
+    const data = await this.http.get<any>("https://ghc5n1arz7.execute-api.us-east-1.amazonaws.com/Dev/order/allorders").toPromise();
     if(data.status == true){
       this.allOrders = data.message;
     }

@@ -32,7 +32,7 @@ export class AddJobComponent implements OnInit {
     this.IsSubmitted = true;
 
     if(this.addJob.valid){
-      const url = "http://localhost:3000/job/addjob";
+      const url = "https://ghc5n1arz7.execute-api.us-east-1.amazonaws.com/Dev/job/addjob";
       await this.add(url);
     }
   }

@@ -32,7 +32,7 @@ export class UpdateJobComponent implements OnInit {
     this.IsSubmitted = true;
 
     if(this.updateJob.valid){
-      const url = "http://localhost:3000/job/modifyjob";
+      const url = "https://ghc5n1arz7.execute-api.us-east-1.amazonaws.com/Dev/job/modifyjob";
       await this.update(url);
     }
   }
