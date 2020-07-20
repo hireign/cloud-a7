@@ -12,7 +12,6 @@ module.exports = {
       }
       res.redirect("/homepage")
     })
-
   },
 
   login: async function (req, res) {
@@ -28,22 +27,26 @@ module.exports = {
           {password: password}
         ]
     });
-
+    console.log(s);
+    if(s.length==0){
+      res.view("pages/purchaseStatus", {result: {msg: "User id or password is wrong"}});
+    }
     userid = s[0].id
 
     let jobs;
     const request2 = require('request-promise');
     await request2('http://129.173.67.217:1337/fetchparts_api?jobs=' + jobname,
       function (error, response, body) {
+        console.log(body)
         jobs = JSON.parse(body);
-      })
+      });
 
     let partsAvail = true;
     let counter = 0;
     jobs.forEach(function (job) {
 
       const request = require('request-promise');
-      request('http://ec2-3-89-197-168.compute-1.amazonaws.com:1337/getqtybyid17/' + job.id,
+      request('https://t7rh3ewhta.execute-api.us-east-1.amazonaws.com/Dev/getQtyById17/' + job.id,
         async function (error, response, body) {
 
           if (parseInt(job.qty) > parseInt(body)) {
@@ -88,12 +91,11 @@ module.exports = {
 
                   const request = require('request');
 
-
                   const options = {
-                    url: 'http://ec2-54-82-117-54.compute-1.amazonaws.com:1337/postOrder',
+                    url: 'https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/order/addorder',
                     json: true,
                     body: {
-                      id: job.id,
+                      partId: job.id,
                       jobName: jobname,
                       userId: userid,
                       qty: job.qty
@@ -109,7 +111,7 @@ module.exports = {
                   });
 
                   const options1 = {
-                    url: 'http://ec2-3-89-197-168.compute-1.amazonaws.com:1337/insertOrder17',
+                    url: 'https://t7rh3ewhta.execute-api.us-east-1.amazonaws.com/Dev/insertOrder17',
                     json: true,
                     body: {
                       id: job.id,
@@ -141,8 +143,9 @@ module.exports = {
   fetchjobs: async function (req, res) {
 
     const request = require('request');
-    request('http://ec2-54-82-117-54.compute-1.amazonaws.com:1337/requestAllJobs', function (error, response, body) {
-      res.send(body);
+    request('https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/job/alljobs', function (error, response, body) {
+    body=JSON.parse(body);
+    res.send(body.message);
     });
   },
 
@@ -153,15 +156,23 @@ module.exports = {
     if (!jobname) {
       jobname = req.query.jobs
     }
-
+    console.log(jobname);
     let joblist;
     const request1 = require('request-promise');
 
-    await request1('http://ec2-54-82-117-54.compute-1.amazonaws.com:1337/requestDataPartsQty/' + jobname, function (err, httpResponse, body) {
 
-      if (JSON.parse(body).length > 0) {
-        joblist = body
 
+
+
+ //---------- json property undefined !! Dont know why!  
+    await request1('https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/job/getparts?jobName=' + jobname+"", function (err, httpResponse, body) {
+    console.log("body:"+body) 
+    console.log("message"+body.message);
+    body=JSON.parse(body);
+    console.log("message"+body.message);
+    if (body.message.length > 0) {
+        joblist = body.message;
+      console.log(joblist)
         var today = new Date();
         const DATE_FORMATER = require('dateformat');
         var time = DATE_FORMATER(today, "HH:MM:ss");
@@ -177,8 +188,6 @@ module.exports = {
       }
     })
 
-    joblist = JSON.parse(joblist);
-
     var data = [];
 
     var l = joblist.length
@@ -186,12 +195,12 @@ module.exports = {
 
     joblist.forEach(async function (arrayItem) {
 
-      let partid = arrayItem.id
+      let partid = arrayItem.partId
       const request = require('request-promise');
-      await request('http://ec2-3-89-197-168.compute-1.amazonaws.com:1337/getpartbyid17/' + partid, function (error, response, body) {
+      await request('https://t7rh3ewhta.execute-api.us-east-1.amazonaws.com/Dev/getPartById17/' + partid, function (error, response, body) {
 
         data.push({
-          id: JSON.parse(body)[0].id,
+          id: JSON.parse(body)[0].partId,
           partName: JSON.parse(body)[0].partName,
           qty: arrayItem.qty
         });
@@ -199,6 +208,7 @@ module.exports = {
         i = i + 1
 
         if (i === l) {
+          console.log(data);
           res.view("pages/orderparts", {parts: data})
         }
       });
@@ -211,24 +221,23 @@ module.exports = {
     let joblist;
     const request1 = require('request-promise');
 
-    await request1('http://ec2-54-82-117-54.compute-1.amazonaws.com:1337/requestDataPartsQty/' + jobname, function (err, httpResponse, body) {
-      joblist = body
+    await request1('https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/job/getparts?jobName=' + jobname, function (err, httpResponse, body) {
+    body=JSON.parse(body);  
+    joblist = body.message;
     })
-
-    joblist = JSON.parse(joblist);
-
     var data = [];
 
     var l = joblist.length
     var i = 0
 
     joblist.forEach(async function (arrayItem) {
-      let partid = arrayItem.id
+      let partid = arrayItem.partId
+      console.log("partid"+partid);
       const request = require('request-promise');
-      await request('http://ec2-3-89-197-168.compute-1.amazonaws.com:1337/getpartbyid17/' + partid, function (error, response, body) {
-
+      await request('https://t7rh3ewhta.execute-api.us-east-1.amazonaws.com/Dev/getPartById17/' + partid, function (error, response, body) {
+        console.log("before"+body);
         data.push({
-          id: JSON.parse(body)[0].id,
+          id: JSON.parse(body)[0].partId,
           partName: JSON.parse(body)[0].partName,
           qty: arrayItem.qty
         });

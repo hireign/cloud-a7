@@ -52,7 +52,7 @@ module.exports = {
           sails.log('vish')
           res.send("inserted..!")
 
-          request.post('http://ec2-54-82-117-54.compute-1.amazonaws.com:1337/postOrder').form({
+          request.post('https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/orders/addorder').form({
             partid: partid, jobname: req.body.jobname,
             userid: req.body.userid, qty: qty
           })
