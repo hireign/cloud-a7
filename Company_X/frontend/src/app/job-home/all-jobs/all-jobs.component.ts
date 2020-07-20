@@ -18,7 +18,7 @@ export class AllJobsComponent implements OnInit {
   }
 
   private async getAllJobs() {
-    const data = await this.http.get<any>('http://localhost:3000/job/alljobs').toPromise();
+    const data = await this.http.get<any>('https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/job/alljobs').toPromise();
     if (data.status == true) {
       this.allJobs = data.message;
     }
@@ -27,7 +27,7 @@ export class AllJobsComponent implements OnInit {
   public async deleteJob(job, partId) {
 
     const body = {jobName: job, partId: partId};
-    const url = 'http://localhost:3000/job/deletejob';
+    const url = 'https://bht6lsihyk.execute-api.us-east-1.amazonaws.com/production/job/deletejob';
     const data = await this.http.put<any>(url, body).toPromise();
     alert(data.message);
     if (data.status == true) {

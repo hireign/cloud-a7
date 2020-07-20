@@ -1,19 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 const serverless = require('serverless-http');
 const JobRoute = require('./api/route/JobRoute');
 const OrderRoute = require('./api/route/OrderRoute');
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.send("Application Working");
 });
 
