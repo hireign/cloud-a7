@@ -1,4 +1,5 @@
 const express = require('express');
+const serverless=require('serverless-http');
 const bodyParser = require('body-parser');
 const app = express();
 const path = require("path");
@@ -9,7 +10,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
-
 
 const sql = require('mysql');
 const { Console } = require('console');
@@ -61,19 +61,43 @@ app.post('/searchOrder17', function (req, res) {
 
 });
 
-function handler17(req, res) {
-	var find17 = req.body.id;
-	const query = "SELECT * FROM PartOrdersY where partId = " + find17 ;
+app.post('/insertOrder17', function (req, res) {
+    console.log("insert order called");
+	const query = "SELECT * FROM PartOrdersY where partId = " + req.body.id+ " and jobName = '" + req.body.jobName + 
+					"' and userId = '" + req.body.userId + "'";
 	con.query(query, (err, result) => {
         if (err) {
             throw err;
         }
+        console.log("------------result"+result);
+        if (result.length === 0) {
+    		let query = "INSERT INTO PartOrdersY VALUES (" + req.body.id + ",'" + req.body.jobName + "','" +
+    					 req.body.userId + "'," + req.body.qty + ")";
+    		con.query(query, (err, result) => {
+            if (err) {
+            	throw err;
+        	}
+    	});
+            
+        }else {
+            res.send({msg: "Order already exist"});
+        }	
+        
+        var find17 = req.body.id;
+	    console.log(req.body);
+	    
         const query1 = "SELECT * FROM parts where partId = " + find17 ;
         con.query(query1, (err, result1) => {
         if (err) {
             throw err;
-        }    
-        var change17 = result1.qoh - result.qty; 
+        }  
+        
+        let a = JSON.parse(JSON.stringify(result1));
+        let qoh=a[0].qoh;
+        
+        
+        var change17 = qoh - req.body.qty; 
+        console.log(qoh,req.body.qty,change17);
         const query2 = "update parts SET qoh = '" + change17 +"' where partId = " + find17;
         con.query(query2, (err, result2) => {
         if (err) {
@@ -82,28 +106,9 @@ function handler17(req, res) {
         res.send(result2);
         });
     });
-    });
-};
-
-app.get('/insertOrder17', function (req, res) {
-	const query = "SELECT * FROM PartOrdersY where partId = " + req.body.id+ " and jobName = '" + req.body.jobName + 
-					"' and userId = '" + req.body.userId + "'";
-	con.query(query, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        if (result.length === 0) {
-    		let query = "INSERT INTO PartOrdersY VALUES (" + req.body.id + ",'" + req.body.jobName + "','" +
-    					 req.body.userId + "'," + req.body.qty + ")";
-            if (err) {
-            	throw err;
-        	}
-            res.send({msg: "Order Added"});
-            handler17(req,res)
-        }
-        else {
-            res.send({msg: "Order already exist"});
-        }
+            
+        
+        
     });
 });
 
@@ -176,15 +181,16 @@ app.post('/displayPartById17', function (req, res) {
         if (err) {
             throw err;
         }
+        console.log("HIHIHIHI");
         res.render("findpart",{parts17: result})
     });
 });
 
 app.post('/addPart17', function (req, res) {
 
-	partId17 = req.body.partId;
-    partName17 = req.body.partName;
-    qty17 = req.body.qty;
+	var partId17 = req.body.partId;
+    var partName17 = req.body.partName;
+    var qty17 = req.body.qty;
 
     const query = "SELECT * FROM parts where partId = " + partId17;
 	con.query(query, (err, result) => {
@@ -192,7 +198,7 @@ app.post('/addPart17', function (req, res) {
             throw err;
         }
         if (result.length > 0) {
-        	errorMessage17 = "A record with part id " + partId17 + " already exists.";
+        	var errorMessage17 = "A record with part id " + partId17 + " already exists.";
         	res.render("error", {errorMessage17: errorMessage17});
       	} 
       	else {
@@ -204,7 +210,7 @@ app.post('/addPart17', function (req, res) {
             }
         });
             console.log()
-        	res.redirect('/displayAllParts17'); 
+        	res.redirect('/Dev/displayAllParts17'); 
       }
 
     });
@@ -227,7 +233,7 @@ app.post('/updateQuantity17/:partId/:partName/', function (req, res) {
         if (err) {
             throw err;
         }
-        res.redirect('/displayAllParts17');  // need to change
+        res.redirect('/Dev/displayAllParts17');  // need to change
 
     });
 });
@@ -248,6 +254,8 @@ app.get('/partExist17/:id', function (req, res) {
 	});
 });
 
-app.listen(3000, function () {
-    console.log("App is running on port 3000");
-});
+// app.listen(3000, function () {
+//     console.log("App is running on port 3000");
+// });
+
+module.exports.handler=serverless(app);
