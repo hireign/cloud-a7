@@ -1,4 +1,5 @@
-const con = require('../db/sql')
+const con = require('../db/sql');
+const request = require('request');
 
 const allJobs = () => {
     return new Promise(function(resolve, reject) {
@@ -42,21 +43,34 @@ const getJobs = (jobName) => {
 
 const addJob = (jobName, partId, qty) => {
     return new Promise(function(resolve, reject) {
-        const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
-        con.query(query, (err, result) => {
-            if (err) {
-                return resolve({status: false, message: "Field format is wrong!!"});
+
+        request('https://t7rh3ewhta.execute-api.us-east-1.amazonaws.com/Dev/partExist17/' + partId, { json: true }, (err, response, body) => {
+            if(err){
+                return resolve({status: false, message: "Request Issue!!"});
             }
-            if (result.length === 0) {
-                const query = "INSERT INTO jobs VALUES ('" + jobName + "'," + partId + "," + qty + ")";
+
+            if(response.body.status) {
+                const query = "SELECT * FROM jobs WHERE jobName = '" + jobName + "' and partId= " + partId;
                 con.query(query, (err, result) => {
                     if (err) {
                         return resolve({status: false, message: "Field format is wrong!!"});
                     }
-                    resolve({status: true, message: "Job added successfully!!"});
+                    if (result.length === 0) {
+                        const query = "INSERT INTO jobs VALUES ('" + jobName + "'," + partId + "," + qty + ")";
+                        con.query(query, (err, result) => {
+                            if (err) {
+                                return resolve({status: false, message: "Field format is wrong!!"});
+                            }
+                            resolve({status: true, message: "Job added successfully!!"});
+                        });
+                    } else {
+                        resolve({status: false, message: "Job already exists!!"});
+                    }
                 });
-            } else {
-                resolve({status: false, message: "Job already exists!!"});
+            }else if(!response.body.status){
+                resolve({status: false, message: "Part does not exist!!"});
+            }else{
+                resolve({status: false, message: "Request Issue!!"});
             }
         });
     });
