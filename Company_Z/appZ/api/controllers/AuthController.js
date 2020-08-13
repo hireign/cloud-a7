@@ -35,7 +35,7 @@ module.exports = {
 
     let jobs;
     const request2 = require('request-promise');
-    await request2('http://129.173.67.217:1337/fetchparts_api?jobs=' + jobname,
+    await request2('http://129.173.67.214:1337/fetchparts_api?jobs=' + jobname,
       function (error, response, body) {
         console.log(body)
         jobs = JSON.parse(body);
