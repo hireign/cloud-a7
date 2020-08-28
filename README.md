@@ -1,3 +1,6 @@
 # CSCI_5409_A7
+Cloud Computing Assignment 7 by Hirenkumar Khant, Simran Diwan, Deep Muni, Swarali Ghalwadkar, Varun Chauhan, and Vishvesh Soni.
 
-Assignment 7 for CSCI 5409 Cloud Computing
+## Technologies
+  1. AWS Lambda
+  2. Serverless Computing
