@@ -4,3 +4,4 @@ Cloud Computing Assignment 7 by Hirenkumar Khant, Simran Diwan, Deep Muni, Swara
 ## Technologies
   1. AWS Lambda
   2. Serverless Computing
+  3. Sails.js
